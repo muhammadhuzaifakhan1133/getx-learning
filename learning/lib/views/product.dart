@@ -11,6 +11,13 @@ class ProductView extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController controller = Get.find(tag: "Home");
     return Scaffold(
+      appBar: AppBar(
+          leading: InkWell(
+        child: const Icon(Icons.arrow_back_ios_sharp),
+        onTap: () {
+          Get.back();
+        },
+      )),
       body: Center(child: Text("${controller.count}")),
     );
   }

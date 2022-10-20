@@ -14,11 +14,23 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Obx(() => Text("${controller.count}"))),
       body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                Get.to(const ProductView());
-              },
-              child: const Text("Go to product Screen"))),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(const ProductView());
+                },
+                child: const Text("Go to product Screen")),
+            ElevatedButton(
+                onPressed: () {
+                  Get.changeTheme(
+                      Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
+                },
+                child: Text("Change Theme"))
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add), onPressed: controller.increment),
     );
