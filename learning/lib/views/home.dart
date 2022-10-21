@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  Get.to(const ProductView());
+                  Get.to(const ProductView(), transition: Transition.downToUp);
                 },
                 child: const Text("Go to product Screen")),
             ElevatedButton(
@@ -27,7 +27,22 @@ class HomeView extends StatelessWidget {
                   Get.changeTheme(
                       Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
                 },
-                child: Text("Change Theme"))
+                child: Text("Change Theme")),
+            ElevatedButton(
+                onPressed: () {
+                  SnackbarwithGet();
+                },
+                child: Text("show snackbar")),
+            ElevatedButton(
+                onPressed: () {
+                  DialogWithGet();
+                },
+                child: Text("show dialog")),
+            ElevatedButton(
+                onPressed: () {
+                  bottomSheetWithGet();
+                },
+                child: Text("show bottom sheet")),
           ],
         ),
       ),
@@ -35,4 +50,44 @@ class HomeView extends StatelessWidget {
           child: Icon(Icons.add), onPressed: controller.increment),
     );
   }
+
+  bottomSheetWithGet() {
+    Get.bottomSheet(
+        Container(
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+              color: Colors.white),
+          child: Wrap(
+            children: [
+              ListTile(title: Text("Music")),
+              ListTile(title: Text("Video"))
+            ],
+          ),
+        ),
+        enableDrag: false,
+        isDismissible: false);
+  }
+
+  DialogWithGet() {
+    Get.defaultDialog(
+        onCancel: () => Get.back(),
+        title: "Delete",
+        onConfirm: () => Get.back(),
+        content: Text("Do you want to delete?"));
+  }
+}
+
+SnackbarwithGet() {
+  Get.snackbar("title", "message",
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
+      borderRadius: 30,
+      duration: Duration(seconds: 3),
+      isDismissible: true,
+      dismissDirection: DismissDirection.horizontal,
+      forwardAnimationCurve: Curves.easeOutBack,
+      icon: Icon(Icons.warning),
+      margin: EdgeInsets.all(15),
+      snackPosition: SnackPosition.BOTTOM);
 }
